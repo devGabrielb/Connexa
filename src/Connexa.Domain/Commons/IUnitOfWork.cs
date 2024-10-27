@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Connexa.Domain.Commons
 {
-    public interface IDomainEvent
+    public interface IUnitOfWork
     {
-
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

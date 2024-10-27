@@ -1,6 +1,16 @@
-@Connexa.Api_HostAddress = http://localhost:5074
+@Connexa_Api_HostAddress = http://localhost:5074
 
-GET {{Connexa.Api_HostAddress}}/weatherforecast/
+POST  {{Connexa_Api_HostAddress}}/login/
 Accept: application/json
 
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "password"
+}
+ 
+
 ###
+
+
