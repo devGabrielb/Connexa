@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Connexa.Domain.Commons;
+using Connexa.Domain.Enums;
 using Connexa.Domain.Events;
+
+using ErrorOr;
 
 namespace Connexa.Domain.Entities
 {
@@ -31,23 +34,30 @@ namespace Connexa.Domain.Entities
             return group;
         }
 
-        public void InviteMember(Guid userId)
+        public ErrorOr<MemberGroup> InviteMember(Guid userId, MemberStatus status = MemberStatus.Pending)
         {
-            var member = MemberGroup.Create(userId, Id);
+            if (_members.Exists(m => m.Id == userId))
+            {
+                return Error.Validation("Member already exists");
+            }
+
+            var member = MemberGroup.Create(userId, Id, status);
             _members.Add(member);
 
             RaiseDomainEvent(new MemberInvitedEvent(Id, member.GroupId));
-
+            return member;
         }
 
-        public void RemoveMember(Guid userId)
+        public ErrorOr<Success> RemoveMember(Guid userId)
         {
             var member = _members.Find(x => x.UserId == userId);
             if (member == null)
             {
-                throw new InvalidOperationException("User is not a member of this group");
+                return Error.NotFound("Member not found");
             }
             _members.Remove(member);
+
+            return Result.Success;
         }
 
         public void AddChore(Chore chore)

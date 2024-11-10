@@ -24,7 +24,7 @@ namespace Connexa.Infra.Configurations
             builder.HasMany(u => u.Tasks).WithOne().HasForeignKey(t => t.OwnerId);
             builder.HasMany(u => u.Comments).WithOne().HasForeignKey(c => c.UserId);
 
-            //builder.HasOne<RefreshToken>().WithOne().HasForeignKey<RefreshToken>(r => r.UserId);
+            builder.HasOne<RefreshToken>().WithOne().HasForeignKey<RefreshToken>(r => r.UserId);
 
         }
     }

@@ -21,7 +21,7 @@ namespace Connexa.Domain.Entities
             Status = status;
         }
 
-        public static MemberGroup Create(Guid userId, Guid groupId, MemberStatus status = MemberStatus.Pending)
+        public static MemberGroup Create(Guid userId, Guid groupId, MemberStatus status)
         {
 
             var memberGroup = new MemberGroup(userId, groupId, status);

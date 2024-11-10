@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Connexa.Infra.Migrations
 {
     [DbContext(typeof(ConnexaContext))]
-    [Migration("20241025024002_NewMigration")]
+    [Migration("20241029001532_NewMigration")]
     partial class NewMigration
     {
         /// <inheritdoc />
@@ -199,6 +199,44 @@ namespace Connexa.Infra.Migrations
                     b.ToTable("member_groups", (string)null);
                 });
 
+            modelBuilder.Entity("Connexa.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expires");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("revoked");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("token");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_refresh_tokens");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_refresh_tokens_user_id");
+
+                    b.ToTable("refresh_tokens", (string)null);
+                });
+
             modelBuilder.Entity("Connexa.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -292,6 +330,16 @@ namespace Connexa.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_member_groups_users_user_id");
+                });
+
+            modelBuilder.Entity("Connexa.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("Connexa.Domain.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("Connexa.Domain.Entities.RefreshToken", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_refresh_tokens_users_user_id");
                 });
 
             modelBuilder.Entity("Connexa.Domain.Entities.Chore", b =>

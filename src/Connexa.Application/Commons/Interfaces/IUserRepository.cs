@@ -7,7 +7,7 @@ using Connexa.Domain.Entities;
 
 namespace Connexa.Application.Commons.Interfaces
 {
-    public interface IUsersRepository
+    public interface IUserRepository
     {
         Task AddUserAsync(User user);
 

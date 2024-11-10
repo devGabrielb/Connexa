@@ -50,6 +50,28 @@ namespace Connexa.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "refresh_tokens",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    token = table.Column<string>(type: "text", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    expires = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    revoked = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_refresh_tokens", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_refresh_tokens_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "chores",
                 columns: table => new
                 {
@@ -170,6 +192,12 @@ namespace Connexa.Infra.Migrations
                 name: "ix_member_groups_user_id",
                 table: "member_groups",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_refresh_tokens_user_id",
+                table: "refresh_tokens",
+                column: "user_id",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -180,6 +208,9 @@ namespace Connexa.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "member_groups");
+
+            migrationBuilder.DropTable(
+                name: "refresh_tokens");
 
             migrationBuilder.DropTable(
                 name: "chores");

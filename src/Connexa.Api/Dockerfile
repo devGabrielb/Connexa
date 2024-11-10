@@ -1,14 +1,15 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 5074
-
-ENV ASPNETCORE_URLS=http://+:5074
+EXPOSE 5000
 
 USER app
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["src/Connexa.Api/Connexa.Api.csproj", "src/Connexa.Api/"]
+COPY ["src/Connexa.Application.csproj", "src/Connexa.Application"],
+COPY ["src/Connexa.Domain.csproj", "src/Connexa.Domain"],
+COPY ["src/Connexa.Infra.csproj", "src/Connexa.Infra]
 RUN dotnet restore "src/Connexa.Api/Connexa.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Connexa.Api"

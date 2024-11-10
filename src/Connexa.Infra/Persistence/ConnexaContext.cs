@@ -19,9 +19,12 @@ namespace Connexa.Infra.Persistence
         {
         }
 
-        public DbSet<Group> FamilyGroups { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Chore> TaskItems { get; set; }
+        public DbSet<Chore> Chores { get; set; }
+        public DbSet<MemberGroup> MemberGroups { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
