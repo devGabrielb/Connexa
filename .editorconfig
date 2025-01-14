@@ -188,6 +188,15 @@ dotnet_diagnostic.CA1062.severity = suggestion
 # S125: Sections of code should not be commented out
 dotnet_diagnostic.S125.severity = suggestion
 
+# CA1002: Do not expose generic lists
+dotnet_diagnostic.CA1002.severity = none
+
+# S1135: Track uses of "TODO" tags
+dotnet_diagnostic.S1135.severity = none
+
+# CS8618: Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+dotnet_diagnostic.CS8618.severity = suggestion
+
 [*.{cs,vb}]
 
 # Naming rules

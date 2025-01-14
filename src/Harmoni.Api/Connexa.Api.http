@@ -1,0 +1,16 @@
+@Harmoni_Api_HostAddress = http://localhost:5074
+
+POST  {{Harmoni_Api_HostAddress}}/login/
+Accept: application/json
+
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "password"
+}
+ 
+
+###
+
+

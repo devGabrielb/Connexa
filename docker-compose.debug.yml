@@ -1,13 +1,13 @@
 # Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
 
-version: '3.4'
+version: "3.4"
 
 services:
-  connexaapi:
-    image: connexaapi
+  Harmoniapi:
+    image: Harmoniapi
     build:
       context: .
-      dockerfile: src/Connexa.Api/Dockerfile
+      dockerfile: src/Harmoni.Api/Dockerfile
       args:
         - configuration=Debug
     ports:
